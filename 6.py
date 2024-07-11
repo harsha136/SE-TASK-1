@@ -6,27 +6,30 @@ def quadratic_model(time, a, b, c):
     return temperature
 
 def main():
-    time_values = np.linspace(0, 10, 50)
+    filename = input("Enter the filename containing the coefficients: ")
 
-    a_hc = 15
-    b_hc = 1
-    c_hc = 30
+    try:
+        with open(filename, 'r') as file:
+            line = file.readline().strip()
+            coefficients = line.split(',')
+            a = float(coefficients[0])
+            b = float(coefficients[1])
+            c = float(coefficients[2])
 
-    a_user = float(input("Enter the value for coefficient a: "))
-    b_user = float(input("Enter the value for coefficient b: "))
-    c_user = float(input("Enter the value for coefficient c: "))
+        time_values = np.linspace(0, 10, 50)
 
-    temperature_hard = quadratic_model(time_values, a_hc, b_hc, c_hc)
-    plt.plot(time_values, temperature_hard, label=f'Hard Coded Coefficient (a={a_hc}, b={b_hc}, c={c_hc})')
+        temperature_values = quadratic_model(time_values, a, b, c)
+        plt.plot(time_values, temperature_values, label=f'Single Set (a={a}, b={b}, c={c})')
 
-    temperature_user = quadratic_model(time_values, a_user, b_user, c_user)
-    plt.plot(time_values, temperature_user, label=f'User INput COefficient (a={a_user}, b={b_user}, c={c_user})')
+        plt.xlabel('Time')
+        plt.ylabel('Temperature')
+        plt.legend()
+        plt.title('Single set from file 1.txt')
+        plt.show()
 
-    plt.xlabel('Time')
-    plt.ylabel('Temperature')
-    plt.legend()
-    plt.title('Quadratic equation with hard-coded and user input coefficients')
-    plt.show()
+    except FileNotFoundError:
+        print(f"Error: File '{filename}' not found.")
+
 
 if __name__ == '__main__':
     main()
