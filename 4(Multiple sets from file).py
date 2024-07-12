@@ -6,7 +6,7 @@ def quadratic_model(time, a, b, c):
     return temperature
 
 def main():
-    filename = input("Enter the filename containing the coefficient sets: ")
+    filename = input("Enter the filename: ")
 
     try:
         with open(filename, 'r') as file:
@@ -31,12 +31,12 @@ def main():
 
         for i in range(num_sets):
             temperature_values = quadratic_model(time_values, a_values[i], b_values[i], c_values[i])
-            plt.plot(time_values, temperature_values, label=f'SET (a={a_values[i]}, b={b_values[i]}, c={c_values[i]})')
+            plt.plot(time_values, temperature_values, label=f'SET {i+1} (a={a_values[i]}, b={b_values[i]}, c={c_values[i]})')
 
         plt.xlabel('Time')
         plt.ylabel('Temperature')
         plt.legend()
-        plt.title('Multiple sets from file 2.txt')
+        plt.title('Multiple sets from file')
         plt.show()
 
     except FileNotFoundError:
