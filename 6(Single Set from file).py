@@ -24,7 +24,7 @@ def main():
         plt.xlabel('Time')
         plt.ylabel('Temperature')
         plt.legend()
-        plt.title('Single set from file 1.txt')
+        plt.title('Single set from file')
         plt.show()
 
     except FileNotFoundError:
